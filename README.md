@@ -1,6 +1,5 @@
 # PHP cheatsheet
 
-source [@EricTheCoder](https://dev.to/ericchapman/my-beloved-php-cheat-sheet-7dl)
 
 ### Comments
 ```
