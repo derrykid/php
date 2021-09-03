@@ -9,7 +9,7 @@
 This is a multiple-lines comment block
 */
 ```
-<br>
+
 ### PHP File identifier
 ```php
 // opening tag
