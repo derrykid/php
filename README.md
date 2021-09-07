@@ -109,6 +109,7 @@ $value = 2; // int
 echo (string)$value; // echo out 2
 echo gettype((string)$value); // int(2);
 ```
+
 ####  4 Scalar types
 ```
 # boolean - true / false
@@ -164,8 +165,7 @@ var_dump($completed); // bool(true);
 echo gettype($completed);
 
 ```
-#### 4 compound types
-# array - list of string, numbers etc
+### array - list of string, numbers etc
 ```
 $companies = [1, 2, 3, 9.12, 'true'];
 echo #companies; // error
