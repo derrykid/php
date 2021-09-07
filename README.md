@@ -1,71 +1,77 @@
 # PHP cheatsheet
 
-
-### Comments
+###  opening tag
 ```
-// one line comment
+<?php
 
-/*
-This is a multiple-lines comment block
+// if your php file are coded entire in php, you shall not have closing tag
+?>
+```
+###  echo & print - echo is preferred way cuz echo is faster than print
+```
+echo 'Hello World'; // single quote or double quote is ok, have semicoloum.
+echo 'Hello', ' ', 'World'; // You cannot do this with print
+
+# escaping apostrophe
+echo "John's home"; // use double quote
+echo 'John/'s home'; // use backslash character
+
+print 'Hello world'; // in addition, 'print' has a return value of '1'
+echo print 'Hello world'; /*Hello world1*/
+```
+
+### variables
+```
+$name
+$_POST
+// cannot start with a number
+e.g. $123name
+// cannot include special characters
+e.g. $cool#@a
+```
+variables are being assigned by value, not by variable
+```
+$x = 1;
+$y = $x;
+$x = 3;
+
+echo $y; // will print 1, not 3
+
+# if you want to assign a variable by a variable.
+
+$x = 1;
+$y = &$x; // every time $x changes, $y changes.
+```
+
+### variable within texts
+```
+$firstname = 'Gio';
+echo 'Hello $firstname'; // Hello $firstname
+echo "Hello $firstname'; // Hello Gio
+echo "Hello {$firstname}'; // Hello Gio, more clarity with curly brackets
+echo 'Hello ' . $firstname; // Hello Gio
+```
+
+### embed in HTML
+```
+// for example, within h1 tag
+<h1>
+<?php echo "Hello world"; ?>
+</h1>
+
+// if want to echo in chosen tags; not recommend to echo out html tags in php
+<?php
+echo '<p>' . $x . '</p>;
+?>
+```
+
+### comments
+```
+// comments - 1 line
+#  comments - 1 line
+/**/   comments - multi lines
+
+/**  duck block
+*		 usually for documentation
 */
 ```
-
-### PHP File identifier
-```php
-// opening tag
-<?php
-
-// Enable strict typing (first line of PHP file)
-<?php
- declare (strict_types=1);
-
-// inclue a PHP file
-require 'app/Product.php'
-
-// Create a namespace
-namespace APP;
-
-// Use a namespace
-use APP\Product;
-
-//naming variable, functions, class
-$firstName = "Mike"; // camelCase
-function updateProduct(); // camelCase
-class ProductItem // StudlyCaps
-const ACCESS_KEY = "123abc"; // all uppder case with underscore seperators
-```
-
-### Output & Input
-```php
-echo "Hello World";
-
-// Debug output
-var_dump($names);
-print_r($products);
-
-// Input from console
-$name = readline('What is your name: ');
-```
-### Variable Declaration
-```php
-$name = 'Mike'; // string
-$isActive = true; //boolean
-$number = 25; //integer
-$amount = 99.95; //float
-
-$fruits = array('peach', 'apple', 'banana'); //array
-$fruits = ['orange', 'apple', 'banana'] //array
-
-
-// type conversion
-$age = 26; // integer
-echo (string)$age; // will echo out $age as string once, but $age is still integer
-$age = (int)readline('Your age: ');
-echo "Your age is" . (string)$age;
-
-echo gettype($age); //int
-echo is_int($age); //true
-echo isfloat(12.5); //true
-echo is_string($name); //true
-```
-
