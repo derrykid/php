@@ -246,6 +246,14 @@ $x /= 1; // $x = $x / 1
 $x %= 1; // $x = $x % 1
 $x **= 1; // $x = $x ** 1
 
+# increment/ decrement operators (++ --)
+$x = 5;
+echo $x++; // echo 5
+echo $x;   // echo 6, because $x does the increment after it.
+
+$y = 5;
+echo ++$y; // echo 6; because $y does increment first
+
 # String operators/ concatenation operator
 $x = 'Hello';
 $x .= 'World';
@@ -268,13 +276,218 @@ $y = $x ?? 'Hello'; // 'Hello'
 
 // if $x is null, then $y is the value after '??'. Otherwise it's the value of $x.
 
+# error control operators (@) - error messages that might be generated will be ignored.
+$x = @file('foo.txt');
 
-```
+# logical operator (&& || ! and or xor)
+$x = true;
+$y = false;
+($x && $y) // false
+($x || $y) // true
+($x && !$y) // true
+
+// short circuiting of logical operator
+$x = true;
+function hello(){
+		echo 'hello';
+		return false;
+}
+
+var_dump($x && hello()); // bool(true). The 'hello' will not be printed.
+
 # object
 # callable
 # iterable
+```
 #### 2 special types
 ```
 # resource
 # null
+```
+
+### Control structures (if / else / elseif / else if)
+```
+# if statement
+$score = 85;
+if ($score >= 90){
+	echo 'A';
+}
+```
+embed in HTML
+```
+// not good for reading
+<body>
+	<?php
+	$score = 74;
+	if ($score >= 90){
+			echo '<strong>A</strong>';
+	} elseif ($score >= 60) {
+			echo '<strong>Pass</strong>';	
+			} else ($score < 60){
+			echo '<strong>Fail</strong>';
+	}
+</body>
+
+# php alternative syntax. Use ':' instead of curly bracket
+<body>
+	<?php $score = 74 ?>
+	<?php if ($score >= 90): ?>
+			<strong>A</strong>
+	<?php elseif ($score >= 60): ?>
+			<strong>Pass</strong>
+	<?php elseif ($score >= 60): ?>
+			<strong>Fail</strong>
+	<?php endif ?>    // endif in the last tag
+</body>
+```
+### Loops
+```
+# while loop (run when the condition is true)
+$i = 0;
+while ($i <= 15){
+	echo $i ++;
+}
+
+# do while (do a least once)
+$i = 0;
+do {
+	echo $i++;
+} while ($i <= 15);
+
+# for
+for ($i = 0; $i < 15; $i++){
+	echo $i;
+}
+
+# foreach (iterate over arrays or objects)
+$programming = ['php', 'java', 'c++', 'go'];
+foreach($programming as $language){
+	echo $language . '<br />';
+}
+
+
+$programming = ['php', 'java', 'c++', 'go'];
+foreach($programming as $key => $language){
+	echo $key . ': ' . $language . '<br />';
+}
+
+unset($language);
+// $language variable is not destroyed after the foreach loop, which means there are value in the variable. In this case, an array. Be aware of this, otherwise you might get into some unexpected errors. Or use the unset() to destroy it.
+
+# iterate over associative array
+$user = [
+		'name' => 'Gio',
+		'email'=> 'gio@gmail.com',
+		'skills' => ['php', 'go', 'c'],
+];
+
+// use json_encode to print the value
+foreach($user as $key => $value){
+ echo $key . ' : ' . json_encode($value) . '<br />';
+}
+
+// use implode() function
+foreach($user as $key => $value){
+	if(is_array($value)){
+			$value = implode(",", $value);
+	}
+	echo $key . ": " . $value . "<br />";
+}
+
+// simply iterate the value
+foreach($user as $key => $value){
+    echo $key . ': ' ;
+    if (is_array($value)){
+      foreach($value as $skills){
+          echo $skills . ',';
+      }
+    } else {
+        echo $value;                                                        
+    } 
+    echo "<br />";
+    } 
+```
+### Switch (expression does loose comparision)
+```
+$paymentstatus = 'paid';
+
+switch($paymentstatus){
+		case 'paid':
+			echo 'Paid';
+			break;    // otherwise, the code will continue running
+
+		case 'declined':
+		case 'rejected':
+			echo 'Payment declined';
+			break;		// you can have 2 cases with same execusion simutaneously
+
+		case 'pending':
+			echo 'Pending payment':
+			break;
+
+		default:
+			echo 'Unknow payment status';
+
+}
+```
+
+### Match - exhaustive, have to list all possibilities. php 8+ (it does strict comparison)
+```
+$paymentstatus = 1;
+$paymentstatus = match($paymentstatus){
+	1 =>	'paid',
+	2, 3 =>  'declined',
+	0 => 'pending',
+	default => 'Unknown error', // optional
+};
+```
+
+### include files (require, require_once, include, include_once)
+```
+include 'file.php';
+
+// require vs include
+// include results in warnning, while requires give you error and stop execusion.
+// default directory will be written in 'include_path' under php.ini file
+
+# require_once  vs require
+require 'file.php';
+// variable in another php files will override if you 'require'.
+// it's recommended to use 'require_once' to avoid function error with overriding the variables.
+
+# using include within HTML for re-usability
+<body>
+	<?php include './nav.php' ?>
+</body>
+
+# include content into a string
+ob_start();
+include './nav.php';
+$nav = ob_get_clean(); // return the contents of the file, HTML will not be rendered.
+
+var_dump($nav);
+```
+
+### functions
+```
+function foo(){
+	echo 'Hello World';
+	/* return 'Hello World'; */ this will work. However, you have to store the value inside a variable and echo it outside the func.
+}
+
+foo(); 	// call the function
+```
+```
+# return type
+function foo(): int|float {  // specify the type ': int'. Use '|' to accept multiple types
+// or use mixed to accept diff types
+		return 1;
+}
+
+# nullable by appending '?'. So it can return 'null' or 'int' in this case.
+function foo(): ?int {
+		return;
+}
+
+
 ```
