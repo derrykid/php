@@ -491,3 +491,39 @@ function foo(): ?int {
 
 
 ```
+### function parameters and arguments
+```
+function foo(int|float $x, int|float $y): int|float { 	// $x and $y are parameters 
+	return $x + $y;
+}
+
+echo foo (5, 10);			// 5, 10 are arguments
+
+
+// parameters accept default value
+function foo($x, $y = 10){
+	return $x + $y;
+}
+
+foo(1);
+
+# splat operator (when the number of parameters are unknown)
+function foo(int|float ...$number): int|float{
+	 foreach($number as $value){
+		$sum += $value;	
+	}
+}
+
+# use splat operator to unpack an array
+$number = [1, 2, 3, 11, 291];
+foo($x, $y, ...$number);
+
+# php8 named argument
+setcookie(name: 'foo', value: 'bar', httponly: true); // setcookie(name, value, expire, path, domain, secure, httponly); 
+
+function sum(int $x, int $y){
+		return $x + $y;
+}
+sum(x: $x, y: $y);
+sum(y: $y, x: $x); // use the named arguments. Therefore, the order doesn't matter anymore.
+```
